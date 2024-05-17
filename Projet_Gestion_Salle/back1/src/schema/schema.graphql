@@ -1,0 +1,284 @@
+ type client {
+ 
+  id_types_cli:Int,
+    nom_cli: String! ,
+    nif: Int !,
+    stat: Int!,
+    contact: String!,
+    fonction_cont: String!,
+    ville:String!,
+    tel:Int!,
+    email: String!
+    
+    }
+ type client1 {
+    id_cli: Int,
+    design_types:String!,
+    nom_cli:String! ,
+    nif: Int !,
+    stat: Int!,
+    contact: String!,
+    fonction_cont: String!,
+    ville:String!,
+    tel:String!,
+    email: String!
+    
+    }
+type role_user {
+    id_role: ID ,
+     design_role: String !
+    }
+
+ type reservation {
+    
+    id_cli:ID!,
+    id_salle:ID!,
+    id_user: ID!,
+    date_res: String !,
+    debut_date: String !,
+    fin_date: String!
+   
+    }
+ type reservation1 {
+    id_res:ID ,
+    nom_cli:String !,
+    libelle:String!,
+    design_user: String!,
+    date_res: String !,
+    debut_date: String !,
+    fin_date: String!,
+    nb_jour: Int !
+    }
+     type calendre {
+    title:String!,
+    start: String !,
+    end: String!,
+   
+    }
+ type facture {
+    id_fact:ID ,
+    id_cli:String!,
+    date_fact:String !,
+    montant: Int !,
+    nombre_jour : Int !
+    }
+type facture1 {
+    id_fact:ID ,
+    nom_cli:String!,
+    libelle:String!,
+    prix_jour:Int!,
+    date_fact:String !,
+    debut_date:String !,
+    fin_date:String !,
+    nombre_jour : Int !,
+     montant: Int !,
+    ville:String!,
+    tel:Int !,
+    email:String !,
+    }
+  type AuthPayload {
+  token: String!
+}
+type user {
+    id_user:ID,
+    id_role: ID !,
+    design_user:String !
+    mdp:String!
+    }
+ type salle {
+    id_salle: ID ,
+    libelle: String !,
+    etat: String !,
+    prix_jour:Int
+      
+    }
+type types_client {
+id_types_cli: ID ,
+ design_typestypes: String !,
+     
+    }
+type types_client1 {
+id_types_cli: ID ,
+ design_types: String !,
+     
+    }
+
+type Date {
+   debut_date:String !,
+   fin_date: String !
+}
+
+type Query {
+ getclient:[client1]!
+ getreservation:[reservation1]!
+ getcalendre:[calendre]!
+getfacture:[facture1]!
+ getuser:[user]!
+getsalle:[salle]!
+getsalle1:[salle]!
+
+gettypes_client:[types_client1]!
+getrole_user:[role_user]!
+getDate: [Date]!
+
+}
+
+
+type Mutation {
+     
+insertclient(addclientInput:clientAddInput):client!
+updateclient(updateclientInput: clientUpdateInput !):client!
+deleteclient(id_cli:Int!):[client]!
+
+
+insertreservation( addreservationInput:reservationAddInput):reservation!
+deletereservation(id_res:Int!):[reservation]!
+
+
+
+insertfacture( addfactureInput:factureAddInput):facture!
+updatefacture(updatefactureInput: factureUpdateInput !):facture!
+deletefacture(id_fact:Int!):[facture]!
+
+
+insertuser( adduserInput:userAddInput):user!
+updateuser(updateuserInput:userUpdateInput !):user!
+deleteuser(id_user:Int!):[user]!
+
+
+insertsalle( addsalleInput:salleAddInput):salle!
+updatesalle(updatesalleInput: salleUpdateInput !):salle!
+deletesalle(id:Int!):[salle]!
+
+
+
+ 
+inserttypes_client( addtypes_clientInput:types_clientAddInput):types_client!
+updatetypes_client(updatetypes_clientInput:types_clientUpdateInput !):types_client!
+deletetypes_client(id_types_cli:Int!):[types_client]!
+
+
+  insertrole_user( addrole_userInput:role_userAddInput):role_user!
+updaterole_user(updaterole_userInput: role_userUpdateInput !):role_user!
+deleterole_user(id_role:Int!):[role_user]!
+
+login(verifylogin:loginAddInput !): AuthPayload!
+      }
+   
+input loginAddInput {
+    design_user: String!, 
+    id_role:Int!,
+    mdp: String!
+    
+    }
+
+     input clientAddInput {
+     id_types_cli: Int
+     nom_cli: String! 
+     nif: Int !
+     stat: Int!
+     contact:String!
+     fonction_cont: String!
+     ville:String!
+     tel:Int!
+     email: String!  
+      }
+     
+      input clientUpdateInput {
+     id_types_cli: Int!
+     nom_cli: String! 
+     nif: Int !
+     stat: Int!
+     contact: String!
+     fonction_cont: String!
+     ville:String!
+     tel:String!
+     email: String!   
+       
+      }
+     
+
+
+
+
+  input reservationAddInput {
+     id_cli:ID !
+     id_salle:ID!
+     prix_jour:Int!
+     id_user: ID !
+     date_res:String !
+     debut_date: String!
+     fin_date: String!
+  
+      }
+     
+      input reservationUpdateInput {
+     id_cli:ID !,
+     id_salle:ID!,
+     id_user: ID !,
+     date_res: String !,
+     debut_date: String!,
+     fin_date: String!,
+      nb_jour: Int !
+      }
+     
+
+
+input salleAddInput {
+       libelle:String !
+       etat:String !
+       prix_jour:Int
+     }
+     
+     input salleUpdateInput {
+       libelle:String !
+       etat:String !
+       prix_jour:Int 
+     }
+
+
+
+ input factureAddInput {
+     id_cli:Int !,
+     date_fact:String !,
+     montant: Int !,
+     nombre_jour : Int!
+     }
+      input factureUpdateInput {
+     id_cli:Int!,
+     date_fact:String !,
+     montant: Int !,
+     nombre_jour : Int !  
+      }
+
+
+input userAddInput {
+      design_user: String ! 
+      id_role:Int!
+      mdp:String !
+       
+      }
+      
+ input userUpdateInput {
+      id_role:Int !,
+      design_user: String ! 
+          
+      }
+
+
+
+ input types_clientAddInput {
+ design_types: String !
+      }
+input types_clientUpdateInput {
+       
+        design_types: String !
+      }
+
+ input role_userAddInput {
+     design_role: String !
+      }
+
+ input role_userUpdateInput {
+       design_role: String ! 
+     }
